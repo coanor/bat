@@ -1,6 +1,8 @@
 /target/
 **/*.rs.bk
 
+rusty-tags.vi
+
 # Generated files
 /assets/completions/bat.bash
 /assets/completions/bat.fish

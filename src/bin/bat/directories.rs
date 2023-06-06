@@ -16,12 +16,16 @@ impl BatProjectDirs {
     fn new() -> Option<BatProjectDirs> {
         let cache_dir = BatProjectDirs::get_cache_dir()?;
 
+        // [xnote] 下面这段其实可以新建一个 get_config_dir() 的函数:
+        //   fn get_config_dir() -> Option<PathBuf> {...}
+        //
         // Checks whether or not $BAT_CONFIG_DIR exists. If it doesn't, set our config dir
         // to our system's default configuration home.
         let config_dir =
             if let Some(config_dir_op) = env::var_os("BAT_CONFIG_DIR").map(PathBuf::from) {
                 config_dir_op
             } else {
+                // [xnote] 条件编译
                 #[cfg(target_os = "macos")]
                 let config_dir_op = env::var_os("XDG_CONFIG_HOME")
                     .map(PathBuf::from)
@@ -34,6 +38,7 @@ impl BatProjectDirs {
                 config_dir_op.map(|d| d.join("bat"))?
             };
 
+        // [xnote] 好办法：通过 Some(xxx) 返回 new 出来的对象
         Some(BatProjectDirs {
             cache_dir,
             config_dir,

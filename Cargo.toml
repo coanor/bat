@@ -12,6 +12,7 @@ build = "build.rs"
 edition = '2018'
 rust-version = "1.64"
 
+# [xnote] https://doc.rust-lang.org/cargo/reference/features.html 
 [features]
 default = ["application"]
 # Feature required for bat the application. Should be disabled when depending on
